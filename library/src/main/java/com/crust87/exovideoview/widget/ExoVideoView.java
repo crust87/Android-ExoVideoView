@@ -1,4 +1,4 @@
-package com.crust87.exovideoview.player;
+package com.crust87.exovideoview.widget;
 
 import android.content.Context;
 import android.graphics.SurfaceTexture;
@@ -85,13 +85,13 @@ public class ExoVideoView extends TextureView implements
     private static final int RENDERER_BUILDING_STATE_BUILT = 3;
 
     // View Components
-    private Context mContext;
-    private Handler mHandler;
-    private Surface mSurface;
+    protected Context mContext;
+    protected Handler mHandler;
+    protected Surface mSurface;
 
     // ExoPlayer Components
     private RendererBuilder mRendererBuilder;
-    private com.google.android.exoplayer.ExoPlayer mMediaPlayer;
+    protected com.google.android.exoplayer.ExoPlayer mMediaPlayer;
     private CopyOnWriteArrayList<Listener> mListeners;
     private TrackRenderer mVideoRenderer;
     private CodecCounters mCodecCounters;
@@ -161,7 +161,11 @@ public class ExoVideoView extends TextureView implements
         mAudioCapabilitiesReceiver.register();
     }
 
-    public void setContentUri(Uri contentUri) {
+    public void setVideoPath(String path) {
+        setVideoURI(Uri.parse(path));
+    }
+
+    public void setVideoURI(Uri contentUri) {
         mContentUri = contentUri;
 
         preparePlayer(true);
@@ -460,6 +464,11 @@ public class ExoVideoView extends TextureView implements
         if (rendererBuildingState == RENDERER_BUILDING_STATE_BUILDING) {
             return STATE_PREPARING;
         }
+
+        if(mMediaPlayer == null) {
+            return STATE_IDLE;
+        }
+
         int playerState = mMediaPlayer.getPlaybackState();
         if (rendererBuildingState == RENDERER_BUILDING_STATE_BUILT && playerState == STATE_IDLE) {
             // This is an edge case where the renderers are built, but are still being passed to the
@@ -654,7 +663,7 @@ public class ExoVideoView extends TextureView implements
     @Override
     public void onAudioTrackUnderrun(int bufferSize, long bufferSizeMs, long elapsedSinceLastFeedMs) {
         if (mInternalErrorListener != null) {
-            mInternalErrorListener.onAudioTrackUnderrun(bufferSize, bufferSizeMs, elapsedSinceLastFeedMs);
+            mInternalErrorListener.onAudioTrackUnderRun(bufferSize, bufferSizeMs, elapsedSinceLastFeedMs);
         }
     }
 
@@ -763,7 +772,7 @@ public class ExoVideoView extends TextureView implements
         void onRendererInitializationError(Exception e);
         void onAudioTrackInitializationError(AudioTrack.InitializationException e);
         void onAudioTrackWriteError(AudioTrack.WriteException e);
-        void onAudioTrackUnderrun(int bufferSize, long bufferSizeMs, long elapsedSinceLastFeedMs);
+        void onAudioTrackUnderRun(int bufferSize, long bufferSizeMs, long elapsedSinceLastFeedMs);
         void onDecoderInitializationError(MediaCodecTrackRenderer.DecoderInitializationException e);
         void onCryptoError(MediaCodec.CryptoException e);
         void onLoadError(int sourceId, IOException e);
