@@ -2,11 +2,13 @@ package com.crust87.exovideoview.widget;
 
 import android.content.Context;
 import android.graphics.SurfaceTexture;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Surface;
 import android.view.TextureView;
+import android.widget.MediaController;
 import android.widget.Toast;
 
 import com.crust87.exovideoview.R;
@@ -29,6 +31,7 @@ import com.google.android.exoplayer.metadata.id3.GeobFrame;
 import com.google.android.exoplayer.metadata.id3.Id3Frame;
 import com.google.android.exoplayer.metadata.id3.PrivFrame;
 import com.google.android.exoplayer.metadata.id3.TxxxFrame;
+import com.google.android.exoplayer.util.PlayerControl;
 import com.google.android.exoplayer.util.Util;
 
 import java.net.CookieHandler;
@@ -41,6 +44,7 @@ import static com.google.android.exoplayer.drm.UnsupportedDrmException.REASON_UN
 public class ExoVideoPlayerView
         extends TextureView
         implements TextureView.SurfaceTextureListener,
+        MediaController.MediaPlayerControl,
         ExoMediaPlayer.Listener,
         ExoMediaPlayer.Id3MetadataListener,
         AudioCapabilitiesReceiver.Listener {
@@ -48,6 +52,7 @@ public class ExoVideoPlayerView
     // Constants
     private static String TAG = ExoVideoPlayerView.class.getSimpleName();
     private static final CookieManager defaultCookieManager;
+
     static {
         defaultCookieManager = new CookieManager();
         defaultCookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ORIGINAL_SERVER);
@@ -59,6 +64,8 @@ public class ExoVideoPlayerView
     private EventLogger mEventLogger;
     private ExoMediaPlayer mMediaPlayer;
     private AudioCapabilitiesReceiver mAudioCapabilitiesReceiver;
+    private PlayerControl mPlayerControl;
+    private ExoMediaPlayer.Listener mListener;
 
     // Attributes
     private boolean mPlayerNeedsPrepare;
@@ -157,6 +164,7 @@ public class ExoVideoPlayerView
     private void preparePlayer(boolean playWhenReady) {
         if (mMediaPlayer == null) {
             mMediaPlayer = new ExoMediaPlayer(getRendererBuilder());
+            mPlayerControl = mMediaPlayer.getPlayerControl();
             mMediaPlayer.addListener(this);
             mMediaPlayer.setMetadataListener(this);
             mMediaPlayer.seekTo(mPlayerPosition);
@@ -219,30 +227,123 @@ public class ExoVideoPlayerView
     }
 
     /*
+    MediaController.MediaPlayerControl
+     */
+    @Override
+    public void start() {
+        if (mPlayerControl != null) {
+            mPlayerControl.start();
+        }
+    }
+
+    @Override
+    public void pause() {
+        if (mPlayerControl != null) {
+            mPlayerControl.pause();
+        }
+    }
+
+    @Override
+    public int getDuration() {
+        if (mPlayerControl != null) {
+            return mPlayerControl.getDuration();
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public int getCurrentPosition() {
+        if (mPlayerControl != null) {
+            return mPlayerControl.getCurrentPosition();
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public void seekTo(int pos) {
+        if (mPlayerControl != null) {
+            mPlayerControl.seekTo(pos);
+        }
+    }
+
+    @Override
+    public boolean isPlaying() {
+        if (mPlayerControl != null) {
+            return mPlayerControl.isPlaying();
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int getBufferPercentage() {
+        if (mPlayerControl != null) {
+            return mPlayerControl.getBufferPercentage();
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public boolean canPause() {
+        if (mPlayerControl != null) {
+            return mPlayerControl.canPause();
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean canSeekBackward() {
+        if (mPlayerControl != null) {
+            return mPlayerControl.canSeekBackward();
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean canSeekForward() {
+        if (mPlayerControl != null) {
+            return mPlayerControl.canSeekForward();
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int getAudioSessionId() {
+        if (mPlayerControl != null) {
+            return mPlayerControl.getAudioSessionId();
+        } else {
+            return 0;
+        }
+    }
+
+    /*
     ExoMediaPlayer.Listener
      */
     @Override
     public void onStateChanged(boolean playWhenReady, int playbackState) {
-        String text = "playWhenReady=" + playWhenReady + ", playbackState=";
         switch (playbackState) {
             case ExoPlayer.STATE_BUFFERING:
-                text += "buffering";
                 break;
             case ExoPlayer.STATE_ENDED:
-                text += "ended";
                 break;
             case ExoPlayer.STATE_IDLE:
-                text += "idle";
                 break;
             case ExoPlayer.STATE_PREPARING:
-                text += "preparing";
                 break;
             case ExoPlayer.STATE_READY:
-                text += "ready";
                 break;
             default:
-                text += "unknown";
                 break;
+        }
+
+        if(mListener != null) {
+            mListener.onStateChanged(playWhenReady, playbackState);
         }
     }
 
@@ -270,11 +371,14 @@ public class ExoVideoPlayerView
         }
 
         if (errorString != null) {
-            // TODO 콜백으로 만들어 주면 좋을 듯
-            Toast.makeText(getContext(), errorString, Toast.LENGTH_LONG).show();
+            Log.e(TAG, errorString);
         }
 
         mPlayerNeedsPrepare = true;
+
+        if(mListener != null) {
+            mListener.onError(e);
+        }
     }
 
     @Override
@@ -282,6 +386,10 @@ public class ExoVideoPlayerView
         // shutterView.setVisibility(View.GONE);
         // videoFrame.setAspectRatio(height == 0 ? 1 : (width * pixelWidthAspectRatio) / height);
         // TODO 좋은 알고리즘?
+
+        if(mListener != null) {
+            mListener.onVideoSizeChanged(width, height, unappliedRotationDegrees, pixelWidthHeightRatio);
+        }
     }
 
     /*
@@ -319,5 +427,12 @@ public class ExoVideoPlayerView
         releasePlayer();
         preparePlayer(playWhenReady);
         mMediaPlayer.setBackgrounded(backgrounded);
+    }
+
+    /*
+    Getters and Setters
+     */
+    public void setListener(ExoMediaPlayer.Listener l) {
+        mListener = l;
     }
 }

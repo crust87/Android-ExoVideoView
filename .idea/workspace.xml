@@ -32,65 +32,22 @@
       <file leaf-file-name="ExoVideoPlayerView.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/library/src/main/java/com/crust87/exovideoview/widget/ExoVideoPlayerView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35459942">
-              <caret line="300" column="116" selection-start-line="300" selection-start-column="107" selection-end-line="300" selection-end-column="116" />
+            <state vertical-scroll-proportion="0.888724">
+              <caret line="390" column="103" selection-start-line="390" selection-start-column="103" selection-end-line="390" selection-end-column="103" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3335#3336#0" expanded="true" />
-                <element signature="e#3390#3391#0" expanded="true" />
-                <element signature="e#8502#8534#0" expanded="true" />
-                <element signature="e#8599#8636#0" expanded="true" />
-                <element signature="e#8639#8665#0" expanded="true" />
-                <element signature="e#9187#9239#0" expanded="true" />
-                <element signature="e#9358#9451#0" expanded="true" />
-                <element signature="e#9512#9598#0" expanded="true" />
-                <element signature="e#9669#9769#0" expanded="true" />
+                <element signature="e#3598#3599#0" expanded="true" />
+                <element signature="e#3653#3654#0" expanded="true" />
+                <element signature="e#10695#10727#0" expanded="true" />
+                <element signature="e#10792#10829#0" expanded="true" />
+                <element signature="e#10832#10858#0" expanded="true" />
+                <element signature="e#11380#11432#0" expanded="true" />
+                <element signature="e#11551#11644#0" expanded="true" />
+                <element signature="e#11705#11791#0" expanded="true" />
+                <element signature="e#11862#11962#0" expanded="true" />
+                <element signature="e#14300#14301#0" expanded="true" />
+                <element signature="e#14329#14330#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExoMediaPlayer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/library/src/main/java/com/crust87/exovideoview/player/ExoMediaPlayer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="230" column="71" selection-start-line="230" selection-start-column="63" selection-end-line="230" selection-end-column="71" />
-              <folding>
-                <element signature="e#0#21424#0" expanded="true" />
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EventLogger.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/library/src/main/java/com/crust87/exovideoview/uril/EventLogger.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="31" column="24" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/library/src/main/res/values/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.117647">
-              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sample/src/main/java/com/crust87/sample/MainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="50" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="50" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -2593,58 +2550,6 @@
               <option name="myItemId" value="exovideoview" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="widget" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="callback" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android-ExoVideoView" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="library" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="exovideoview" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uril" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android-ExoVideoView" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="library" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="exovideoview" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="player" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -2669,7 +2574,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Android-VideoCropView" />
     <property name="device.picker.selection" value="89024ceb" />
     <property name="FullScreen" value="true" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/mabi/AndroidStudioProjects/Android-ExoVideoView/library/src/main/java/com/crust87/exovideoview/player/ExoMediaPlayer.java" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/mabi/Library/Android/sdk/sources/android-23/android/media/MediaPlayer.java" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -3078,14 +2983,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.exoplayer/exoplayer/r1.5.6/7336ba9613e58211dca8b960ffa0701bf1c4e1e1/exoplayer-r1.5.6-sources.jar!/com/google/android/exoplayer/MediaCodecTrackRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21327014">
-          <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.exoplayer/exoplayer/r1.5.6/7336ba9613e58211dca8b960ffa0701bf1c4e1e1/exoplayer-r1.5.6-sources.jar!/com/google/android/exoplayer/drm/UnsupportedDrmException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3128,30 +3025,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/library/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.117647">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/library/src/main/java/com/crust87/exovideoview/uril/EventLogger.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="31" column="24" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
           <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/crust87/exovideoview/player/ExoMediaPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="230" column="71" selection-start-line="230" selection-start-column="63" selection-end-line="230" selection-end-column="71" />
-          <folding>
-            <element signature="e#0#21424#0" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>
@@ -3165,21 +3043,71 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.exoplayer/exoplayer/r1.5.6/7336ba9613e58211dca8b960ffa0701bf1c4e1e1/exoplayer-r1.5.6-sources.jar!/com/google/android/exoplayer/util/PlayerControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="9" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
+          <folding>
+            <element signature="e#1197#1198#0" expanded="true" />
+            <element signature="e#1233#1234#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/crust87/exovideoview/player/ExoMediaPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.77893174">
+          <caret line="163" column="38" selection-start-line="163" selection-start-column="28" selection-end-line="163" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#21424#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#9003#9004#0" expanded="true" />
+            <element signature="e#9039#9040#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33707866">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-23/android/media/MediaPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8219585">
+          <caret line="3325" column="63" selection-start-line="3325" selection-start-column="63" selection-end-line="3325" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.exoplayer/exoplayer/r1.5.6/7336ba9613e58211dca8b960ffa0701bf1c4e1e1/exoplayer-r1.5.6-sources.jar!/com/google/android/exoplayer/MediaCodecTrackRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3323442">
+          <caret line="97" column="24" selection-start-line="97" selection-start-column="24" selection-end-line="97" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/library/src/main/java/com/crust87/exovideoview/widget/ExoVideoPlayerView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35459942">
-          <caret line="300" column="116" selection-start-line="300" selection-start-column="107" selection-end-line="300" selection-end-column="116" />
+        <state vertical-scroll-proportion="0.888724">
+          <caret line="390" column="103" selection-start-line="390" selection-start-column="103" selection-end-line="390" selection-end-column="103" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3335#3336#0" expanded="true" />
-            <element signature="e#3390#3391#0" expanded="true" />
-            <element signature="e#8502#8534#0" expanded="true" />
-            <element signature="e#8599#8636#0" expanded="true" />
-            <element signature="e#8639#8665#0" expanded="true" />
-            <element signature="e#9187#9239#0" expanded="true" />
-            <element signature="e#9358#9451#0" expanded="true" />
-            <element signature="e#9512#9598#0" expanded="true" />
-            <element signature="e#9669#9769#0" expanded="true" />
+            <element signature="e#3598#3599#0" expanded="true" />
+            <element signature="e#3653#3654#0" expanded="true" />
+            <element signature="e#10695#10727#0" expanded="true" />
+            <element signature="e#10792#10829#0" expanded="true" />
+            <element signature="e#10832#10858#0" expanded="true" />
+            <element signature="e#11380#11432#0" expanded="true" />
+            <element signature="e#11551#11644#0" expanded="true" />
+            <element signature="e#11705#11791#0" expanded="true" />
+            <element signature="e#11862#11962#0" expanded="true" />
+            <element signature="e#14300#14301#0" expanded="true" />
+            <element signature="e#14329#14330#0" expanded="true" />
           </folding>
         </state>
       </provider>
