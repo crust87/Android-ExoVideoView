@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.crust87.exovideoview.widget.ExoVideoPlayerView;
+import com.google.android.exoplayer.util.Util;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,10 +30,12 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1000 && resultCode == RESULT_OK) {
             Uri selectedVideoUri = data.getData();
 
+            mVideoView.setContent(selectedVideoUri);
 
-
-            mVideoView.setVideoURI(selectedVideoUri);
-            mVideoView.start();
+//
+//
+//            mVideoView.setVideoURI(selectedVideoUri);
+//            mVideoView.start();
         }
     }
 }
