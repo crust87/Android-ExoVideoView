@@ -2,17 +2,10 @@
 <items version="2" >
 
     <item
-        jar="/Users/mabi/AndroidStudioProjects/Android-ExoVideoView/sample/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer/r1.5.6/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="3c046dc3c0911d142627192884ee771d9a6f5f34">
-        <dex dex="/Users/mabi/AndroidStudioProjects/Android-ExoVideoView/sample/build/intermediates/pre-dexed/debug/classes-a027c869b3729ac5d35704705e18d384dea0e4d1.jar" />
-    </item>
-    <item
         jar="/Users/mabi/AndroidStudioProjects/Android-ExoVideoView/sample/build/intermediates/exploded-aar/Android-ExoVideoView/library/unspecified/jars/classes.jar"
         jumboMode="false"
         revision="23.0.2"
-        sha1="f05a5a180b832188cfa711625782756b6e47efa5">
+        sha1="aaf5fbca429f4d1b56ab017351be1d2cf4592617">
         <dex dex="/Users/mabi/AndroidStudioProjects/Android-ExoVideoView/sample/build/intermediates/pre-dexed/debug/classes-7a714c2bd50452598bc8c0d10f8aa2c3c8345847.jar" />
     </item>
 

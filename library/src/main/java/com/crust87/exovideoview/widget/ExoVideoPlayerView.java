@@ -2,14 +2,12 @@ package com.crust87.exovideoview.widget;
 
 import android.content.Context;
 import android.graphics.SurfaceTexture;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Surface;
 import android.view.TextureView;
 import android.widget.MediaController;
-import android.widget.Toast;
 
 import com.crust87.exovideoview.R;
 import com.crust87.exovideoview.player.DashRendererBuilder;
@@ -38,6 +36,7 @@ import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static com.google.android.exoplayer.drm.UnsupportedDrmException.REASON_UNSUPPORTED_SCHEME;
 
@@ -65,11 +64,12 @@ public class ExoVideoPlayerView
     private ExoMediaPlayer mMediaPlayer;
     private AudioCapabilitiesReceiver mAudioCapabilitiesReceiver;
     private PlayerControl mPlayerControl;
-    private ExoMediaPlayer.Listener mListener;
+    private CopyOnWriteArrayList<ExoMediaPlayer.Listener> mListeners;
 
     // Attributes
     private boolean mPlayerNeedsPrepare;
     private long mPlayerPosition;
+    private int mPlaybackState;
     private Uri mContentUri;
     private int mContentType;
     private String mContentId;
@@ -80,6 +80,7 @@ public class ExoVideoPlayerView
         super(context);
 
         mContext = context;
+        mListeners = new CopyOnWriteArrayList<>();
         init();
     }
 
@@ -87,6 +88,7 @@ public class ExoVideoPlayerView
         super(context, attrs);
 
         mContext = context;
+        mListeners = new CopyOnWriteArrayList<>();
         init();
     }
 
@@ -94,6 +96,7 @@ public class ExoVideoPlayerView
         super(context, attrs, defStyleAttr);
 
         mContext = context;
+        mListeners = new CopyOnWriteArrayList<>();
         init();
     }
 
@@ -327,7 +330,9 @@ public class ExoVideoPlayerView
      */
     @Override
     public void onStateChanged(boolean playWhenReady, int playbackState) {
-        switch (playbackState) {
+        mPlaybackState = playbackState;
+
+        switch (mPlaybackState) {
             case ExoPlayer.STATE_BUFFERING:
                 break;
             case ExoPlayer.STATE_ENDED:
@@ -342,8 +347,8 @@ public class ExoVideoPlayerView
                 break;
         }
 
-        if(mListener != null) {
-            mListener.onStateChanged(playWhenReady, playbackState);
+        for (ExoMediaPlayer.Listener l : mListeners) {
+            l.onStateChanged(playWhenReady, playbackState);
         }
     }
 
@@ -376,8 +381,8 @@ public class ExoVideoPlayerView
 
         mPlayerNeedsPrepare = true;
 
-        if(mListener != null) {
-            mListener.onError(e);
+        for (ExoMediaPlayer.Listener l : mListeners) {
+            l.onError(e);
         }
     }
 
@@ -387,8 +392,8 @@ public class ExoVideoPlayerView
         // videoFrame.setAspectRatio(height == 0 ? 1 : (width * pixelWidthAspectRatio) / height);
         // TODO 좋은 알고리즘?
 
-        if(mListener != null) {
-            mListener.onVideoSizeChanged(width, height, unappliedRotationDegrees, pixelWidthHeightRatio);
+        for (ExoMediaPlayer.Listener l : mListeners) {
+            l.onVideoSizeChanged(width, height, unappliedRotationDegrees, pixelWidthHeightRatio);
         }
     }
 
@@ -432,7 +437,11 @@ public class ExoVideoPlayerView
     /*
     Getters and Setters
      */
-    public void setListener(ExoMediaPlayer.Listener l) {
-        mListener = l;
+    public void addListener(ExoMediaPlayer.Listener l) {
+        mListeners.add(l);
+    }
+
+    public int getPlaybackState() {
+        return mPlaybackState;
     }
 }
