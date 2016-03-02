@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.crust87.exovideoview.widget;
+package com.crust87.exovideoview.uril;
 
 import com.crust87.exovideoview.player.ExoMediaPlayer;
 import com.google.android.exoplayer.ExoPlayer;

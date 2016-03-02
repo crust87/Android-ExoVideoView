@@ -15,6 +15,9 @@ import com.crust87.exovideoview.player.ExoMediaPlayer;
 import com.crust87.exovideoview.player.ExtractorRendererBuilder;
 import com.crust87.exovideoview.player.HlsRendererBuilder;
 import com.crust87.exovideoview.player.SmoothStreamingRendererBuilder;
+import com.crust87.exovideoview.uril.EventLogger;
+import com.crust87.exovideoview.widget.callback.SmoothStreamingTestMediaDrmCallback;
+import com.crust87.exovideoview.widget.callback.WidevineTestMediaDrmCallback;
 import com.google.android.exoplayer.ExoPlaybackException;
 import com.google.android.exoplayer.ExoPlayer;
 import com.google.android.exoplayer.MediaCodecTrackRenderer.DecoderInitializationException;
@@ -35,47 +38,37 @@ import java.util.List;
 
 import static com.google.android.exoplayer.drm.UnsupportedDrmException.REASON_UNSUPPORTED_SCHEME;
 
-public class ExoVideoPlayerView extends TextureView implements TextureView.SurfaceTextureListener,
-        ExoMediaPlayer.Listener, ExoMediaPlayer.Id3MetadataListener,
+public class ExoVideoPlayerView
+        extends TextureView
+        implements TextureView.SurfaceTextureListener,
+        ExoMediaPlayer.Listener,
+        ExoMediaPlayer.Id3MetadataListener,
         AudioCapabilitiesReceiver.Listener {
 
+    // Constants
     private static String TAG = ExoVideoPlayerView.class.getSimpleName();
-
-    // For use within demo app code.
-    public static final String CONTENT_ID_EXTRA = "content_id";
-    public static final String CONTENT_TYPE_EXTRA = "content_type";
-    public static final String PROVIDER_EXTRA = "provider";
-
-    // For use when launching the demo app using adb.
-    private static final String CONTENT_EXT_EXTRA = "type";
-
-    private static final int MENU_GROUP_TRACKS = 1;
-    private static final int ID_OFFSET = 2;
-
     private static final CookieManager defaultCookieManager;
-
     static {
         defaultCookieManager = new CookieManager();
         defaultCookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ORIGINAL_SERVER);
     }
 
-    private EventLogger eventLogger;
+    // Components
+    private Surface mSurface;
+    private Context mContext;
+    private EventLogger mEventLogger;
+    private ExoMediaPlayer mMediaPlayer;
+    private AudioCapabilitiesReceiver mAudioCapabilitiesReceiver;
 
-    private ExoMediaPlayer player;
-    private boolean playerNeedsPrepare;
-
-    private long playerPosition;
-
+    // Attributes
+    private boolean mPlayerNeedsPrepare;
+    private long mPlayerPosition;
     private Uri mContentUri;
     private int mContentType;
     private String mContentId;
     private String mProvider;
 
-    private AudioCapabilitiesReceiver audioCapabilitiesReceiver;
-
-    private Surface mSurface;
-    private Context mContext;
-
+    // Constructor
     public ExoVideoPlayerView(Context context) {
         super(context);
 
@@ -114,10 +107,10 @@ public class ExoVideoPlayerView extends TextureView implements TextureView.Surfa
         mContentId = contentId;
         mProvider = provider;
 
-        if (player == null) {
+        if (mMediaPlayer == null) {
             preparePlayer(true);
         } else {
-            player.setBackgrounded(false);
+            mMediaPlayer.setBackgrounded(false);
         }
     }
 
@@ -125,7 +118,7 @@ public class ExoVideoPlayerView extends TextureView implements TextureView.Surfa
         // Using when background play on pause
         // player.setBackgrounded(true);
 
-        audioCapabilitiesReceiver.unregister();
+        mAudioCapabilitiesReceiver.unregister();
         releasePlayer();
     }
 
@@ -140,8 +133,8 @@ public class ExoVideoPlayerView extends TextureView implements TextureView.Surfa
             CookieHandler.setDefault(defaultCookieManager);
         }
 
-        audioCapabilitiesReceiver = new AudioCapabilitiesReceiver(mContext, this);
-        audioCapabilitiesReceiver.register();
+        mAudioCapabilitiesReceiver = new AudioCapabilitiesReceiver(mContext, this);
+        mAudioCapabilitiesReceiver.register();
     }
 
     private ExoMediaPlayer.RendererBuilder getRendererBuilder() {
@@ -162,35 +155,35 @@ public class ExoVideoPlayerView extends TextureView implements TextureView.Surfa
     }
 
     private void preparePlayer(boolean playWhenReady) {
-        if (player == null) {
-            player = new ExoMediaPlayer(getRendererBuilder());
-            player.addListener(this);
-            player.setMetadataListener(this);
-            player.seekTo(playerPosition);
-            playerNeedsPrepare = true;
-            eventLogger = new EventLogger();
-            eventLogger.startSession();
-            player.addListener(eventLogger);
-            player.setInfoListener(eventLogger);
-            player.setInternalErrorListener(eventLogger);
+        if (mMediaPlayer == null) {
+            mMediaPlayer = new ExoMediaPlayer(getRendererBuilder());
+            mMediaPlayer.addListener(this);
+            mMediaPlayer.setMetadataListener(this);
+            mMediaPlayer.seekTo(mPlayerPosition);
+            mPlayerNeedsPrepare = true;
+            mEventLogger = new EventLogger();
+            mEventLogger.startSession();
+            mMediaPlayer.addListener(mEventLogger);
+            mMediaPlayer.setInfoListener(mEventLogger);
+            mMediaPlayer.setInternalErrorListener(mEventLogger);
         }
 
-        if (playerNeedsPrepare) {
-            player.prepare();
-            playerNeedsPrepare = false;
+        if (mPlayerNeedsPrepare) {
+            mMediaPlayer.prepare();
+            mPlayerNeedsPrepare = false;
         }
 
-        player.setSurface(mSurface);
-        player.setPlayWhenReady(playWhenReady);
+        mMediaPlayer.setSurface(mSurface);
+        mMediaPlayer.setPlayWhenReady(playWhenReady);
     }
 
     private void releasePlayer() {
-        if (player != null) {
-            playerPosition = player.getCurrentPosition();
-            player.release();
-            player = null;
-            eventLogger.endSession();
-            eventLogger = null;
+        if (mMediaPlayer != null) {
+            mPlayerPosition = mMediaPlayer.getCurrentPosition();
+            mMediaPlayer.release();
+            mMediaPlayer = null;
+            mEventLogger.endSession();
+            mEventLogger = null;
         }
     }
 
@@ -201,8 +194,8 @@ public class ExoVideoPlayerView extends TextureView implements TextureView.Surfa
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
         mSurface = new Surface(surface);
 
-        if (player != null) {
-            player.setSurface(mSurface);
+        if (mMediaPlayer != null) {
+            mMediaPlayer.setSurface(mSurface);
         }
     }
 
@@ -213,8 +206,8 @@ public class ExoVideoPlayerView extends TextureView implements TextureView.Surfa
 
     @Override
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
-        if (player != null) {
-            player.blockingClearSurface();
+        if (mMediaPlayer != null) {
+            mMediaPlayer.blockingClearSurface();
         }
 
         return false;
@@ -281,7 +274,7 @@ public class ExoVideoPlayerView extends TextureView implements TextureView.Surfa
             Toast.makeText(getContext(), errorString, Toast.LENGTH_LONG).show();
         }
 
-        playerNeedsPrepare = true;
+        mPlayerNeedsPrepare = true;
     }
 
     @Override
@@ -317,14 +310,14 @@ public class ExoVideoPlayerView extends TextureView implements TextureView.Surfa
      */
     @Override
     public void onAudioCapabilitiesChanged(AudioCapabilities audioCapabilities) {
-        if (player == null) {
+        if (mMediaPlayer == null) {
             return;
         }
 
-        boolean backgrounded = player.getBackgrounded();
-        boolean playWhenReady = player.getPlayWhenReady();
+        boolean backgrounded = mMediaPlayer.getBackgrounded();
+        boolean playWhenReady = mMediaPlayer.getPlayWhenReady();
         releasePlayer();
         preparePlayer(playWhenReady);
-        player.setBackgrounded(backgrounded);
+        mMediaPlayer.setBackgrounded(backgrounded);
     }
 }
