@@ -32,7 +32,7 @@ import com.google.android.exoplayer.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer.upstream.DefaultUriDataSource;
 
 
-public class ExtractorRendererBuilder implements ExoVideoView.RendererBuilder {
+public class ExtractorRendererBuilder implements ExoVideoPlayerView.RendererBuilder {
 
     private static final int BUFFER_SEGMENT_SIZE = 64 * 1024;
     private static final int BUFFER_SEGMENT_COUNT = 256;
@@ -48,7 +48,7 @@ public class ExtractorRendererBuilder implements ExoVideoView.RendererBuilder {
     }
 
     @Override
-    public void buildRenderers(ExoVideoView videoView) {
+    public void buildRenderers(ExoVideoPlayerView videoView) {
         Allocator allocator = new DefaultAllocator(BUFFER_SEGMENT_SIZE);
 
         // Build the video and audio renderers.
@@ -66,10 +66,10 @@ public class ExtractorRendererBuilder implements ExoVideoView.RendererBuilder {
                 videoView.getMainHandler().getLooper());
 
         // Invoke the callback.
-        TrackRenderer[] renderers = new TrackRenderer[ExoVideoView.RENDERER_COUNT];
-        renderers[ExoVideoView.TYPE_VIDEO] = videoRenderer;
-        renderers[ExoVideoView.TYPE_AUDIO] = audioRenderer;
-        renderers[ExoVideoView.TYPE_TEXT] = textRenderer;
+        TrackRenderer[] renderers = new TrackRenderer[ExoVideoPlayerView.RENDERER_COUNT];
+        renderers[ExoVideoPlayerView.TYPE_VIDEO] = videoRenderer;
+        renderers[ExoVideoPlayerView.TYPE_AUDIO] = audioRenderer;
+        renderers[ExoVideoPlayerView.TYPE_TEXT] = textRenderer;
         videoView.onRenderers(renderers, bandwidthMeter);
     }
 

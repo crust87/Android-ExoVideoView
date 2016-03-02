@@ -50,7 +50,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * Created by mabi on 2015. 12. 30..
  */
-public class ExoVideoView extends TextureView implements
+public class ExoVideoPlayerView extends TextureView implements
         MediaController.MediaPlayerControl,
         ChunkSampleSource.EventListener,
         HlsSampleSource.EventListener,
@@ -94,8 +94,6 @@ public class ExoVideoView extends TextureView implements
     protected com.google.android.exoplayer.ExoPlayer mMediaPlayer;
     private CopyOnWriteArrayList<Listener> mListeners;
     private TrackRenderer mVideoRenderer;
-    private CodecCounters mCodecCounters;
-    private BandwidthMeter mBandwidthMeter;
 
     // Media Player Components
     private PlayerControl mPlayerControl;
@@ -120,7 +118,7 @@ public class ExoVideoView extends TextureView implements
     private boolean backgrounded;
 
     // Constructors
-    public ExoVideoView(Context context) {
+    public ExoVideoPlayerView(Context context) {
         super(context);
 
         mContext = context;
@@ -128,7 +126,7 @@ public class ExoVideoView extends TextureView implements
         init();
     }
 
-    public ExoVideoView(Context context, AttributeSet attrs) {
+    public ExoVideoPlayerView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         mContext = context;
@@ -136,7 +134,7 @@ public class ExoVideoView extends TextureView implements
         init();
     }
 
-    public ExoVideoView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ExoVideoPlayerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         mContext = context;
@@ -322,7 +320,7 @@ public class ExoVideoView extends TextureView implements
     }
 
     // ExoMediaPlayer.MetadataListener implementation
-    private ExoVideoView.Id3MetadataListener mId3MetadataListener = new Id3MetadataListener() {
+    private ExoVideoPlayerView.Id3MetadataListener mId3MetadataListener = new Id3MetadataListener() {
         @Override
         public void onId3Metadata(Map<String, Object> metadata) {
             for (Map.Entry<String, Object> entry : metadata.entrySet()) {
@@ -347,7 +345,7 @@ public class ExoVideoView extends TextureView implements
     };
 
     // ExoMediaPlayer.Listener implementation
-    private ExoVideoView.Listener mListener = new Listener() {
+    private ExoVideoPlayerView.Listener mListener = new Listener() {
         @Override
         public void onStateChanged(boolean playWhenReady, int playbackState) {
             for (Listener listener : mListeners) {
@@ -514,7 +512,7 @@ public class ExoVideoView extends TextureView implements
     /**
      * Invoked with the results from a {@link RendererBuilder}.
      *
-     * @param renderers      Renderers indexed by {@link ExoVideoView} TYPE_* constants. An individual
+     * @param renderers      Renderers indexed by {@link ExoVideoPlayerView} TYPE_* constants. An individual
      *                       element may be null if there do not exist tracks of the corresponding type.
      * @param bandwidthMeter Provides an estimate of the currently available bandwidth. May be null.
      */
@@ -527,11 +525,6 @@ public class ExoVideoView extends TextureView implements
         }
         // Complete preparation.
         mVideoRenderer = renderers[TYPE_VIDEO];
-        mCodecCounters = mVideoRenderer instanceof MediaCodecTrackRenderer
-                ? ((MediaCodecTrackRenderer) mVideoRenderer).codecCounters
-                : renderers[TYPE_AUDIO] instanceof MediaCodecTrackRenderer
-                ? ((MediaCodecTrackRenderer) renderers[TYPE_AUDIO]).codecCounters : null;
-        mBandwidthMeter = bandwidthMeter;
         pushSurface(false);
         mMediaPlayer.prepare(renderers);
         rendererBuildingState = RENDERER_BUILDING_STATE_BUILT;
@@ -747,7 +740,7 @@ public class ExoVideoView extends TextureView implements
      *
      */
     public interface RendererBuilder {
-        void buildRenderers(ExoVideoView player);
+        void buildRenderers(ExoVideoPlayerView player);
         void cancel();
     }
 
