@@ -53,7 +53,7 @@ public class ScalableVideoView extends ExoVideoPlayerView {
         mVideoWidth = 0;
         addListener(mListener);
 
-        setScaleType(ScaleType.FIT_XY);
+        setScaleType(ScaleType.FIT_CENTER);
     }
 
     public ScalableVideoView(Context context, AttributeSet attrs) {
