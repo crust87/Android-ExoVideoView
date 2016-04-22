@@ -5,7 +5,7 @@ publish {
     userOrg = 'mabi87'
     groupId = 'com.crust87'
     artifactId = 'exovideoview'
-    publishVersion = '1.0.0'
+    publishVersion = '1.1.1'
     desc = 'VideoView using ExoPlayer'
     website = 'https://github.com/crust87/Android-ExoVideoView'
     issueTracker = "${website}/issues"
@@ -18,9 +18,9 @@ android {
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.1.1"
     }
     buildTypes {
         release {
@@ -32,6 +32,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.2.0'
     compile 'com.google.android.exoplayer:exoplayer:r1.5.6'
 }
