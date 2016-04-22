@@ -74,11 +74,13 @@ public class ExoVideoPlayerView
     private int mContentType;
     private String mContentId;
     private String mProvider;
+    private boolean isMute;
 
     // Constructor
     public ExoVideoPlayerView(Context context) {
         super(context);
 
+        isMute = true;
         mContext = context;
         mListeners = new CopyOnWriteArrayList<>();
         init();
@@ -87,6 +89,7 @@ public class ExoVideoPlayerView
     public ExoVideoPlayerView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
+        isMute = true;
         mContext = context;
         mListeners = new CopyOnWriteArrayList<>();
         init();
@@ -95,6 +98,7 @@ public class ExoVideoPlayerView
     public ExoVideoPlayerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
+        isMute = true;
         mContext = context;
         mListeners = new CopyOnWriteArrayList<>();
         init();
@@ -177,6 +181,7 @@ public class ExoVideoPlayerView
             mMediaPlayer.addListener(mEventLogger);
             mMediaPlayer.setInfoListener(mEventLogger);
             mMediaPlayer.setInternalErrorListener(mEventLogger);
+            mMediaPlayer.setMute(isMute);
         }
 
         if (mPlayerNeedsPrepare) {
@@ -432,6 +437,14 @@ public class ExoVideoPlayerView
         releasePlayer();
         preparePlayer(playWhenReady);
         mMediaPlayer.setBackgrounded(backgrounded);
+    }
+
+    public void setMute(boolean toMute) {
+        this.isMute = toMute;
+
+        if(mMediaPlayer != null) {
+            mMediaPlayer.setMute(isMute);
+        }
     }
 
     /*
